@@ -6,6 +6,7 @@ import { Button, Modal } from 'react-bootstrap'; // Import Modal from 'react-boo
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { useDispatch, useSelector } from 'react-redux';
 import { Remove, Update } from '../redux/list/action.js';
+import axios from 'axios';
 
 const Todo = () => {
   const { User_data } = useSelector((state) => state.todoreducers);
@@ -17,19 +18,38 @@ const Todo = () => {
   const [ind, setInd] = useState('');
   const handleClose = () => setShow(false);
 
-  const remove = (id) => {
-    dispatch(Remove(id));
-    alert('Successfully Deleted');
-  };
+  // const remove = (id) => {
+  //   dispatch(Remove(id));
+  //   alert('Successfully Deleted');
+  // };
+
+  const remove = async (id) => {
+      try {
+        await axios.delete(`/api/tasks/${id}`);
+        dispatch(Remove(id));
+        alert('Successfully Deleted');
+      } catch (error) {
+        console.error('Error removing task:', error);
+      }
+    };
 
   const handleShow = (ele) => {
     setShow(true);
     setUpdate(ele);
   };
 
-  const userTaskUpdate = () => {
-    dispatch(Update(update, ind));
-    handleClose();
+  // const userTaskUpdate = () => {
+  //   dispatch(Update(update, ind));
+  //   handleClose();
+  // };
+  const userTaskUpdate = async () => {
+    try {
+      await axios.put(`/api/tasks/${ind}`, { task: update });
+      dispatch(Update({ task: update, ind }));
+      handleClose();
+    } catch (error) {
+      console.error('Error updating task:', error);
+    }
   };
 
   return (
