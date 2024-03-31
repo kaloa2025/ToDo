@@ -1,0 +1,33 @@
+.todo_container
+{
+    background-color: #e7f2ff;
+    color: #2b4c72;
+    border-radius: 10px;
+    height: 45px;
+    box-shadow:0 1px 5px #2b4c721d;
+}
+
+.todo_container:hover
+{
+    background-color: #3073c5;
+    color: #ffffff;
+    border-radius: 10px;
+    height: 45px;
+}
+
+li{
+    list-style: none;
+}
+.deletebut:hover{
+    color: red;
+}
+.editbut:hover{
+    color: #00b3ff;
+}
+.seebut:hover{
+    color:rgb(0, 205, 0);
+}
+.edit_dlt
+{
+    cursor: pointer;
+}
